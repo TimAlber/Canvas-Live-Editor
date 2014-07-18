@@ -2,7 +2,7 @@
 * @Author: Anthony Del Ciotto
 * @Date:   2014-06-25
 * @Last Modified by:   anthony
-* @Last Modified time: 2014-06-26
+* @Last Modified time: 2014-07-18
 *
 * @Description: 
 *
@@ -105,7 +105,7 @@ var Demo = (function() {
 		},
 
 		clearCanvas: function(color) {
-			if (color === undefined) {
+			if (typeof color === 'undefined') {
 				this.context.clearRect(0, 0, this.width, this.height);
 			} else {
 				this.context.fillStyle = color;
