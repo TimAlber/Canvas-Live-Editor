@@ -2,7 +2,7 @@
 * @Author: Anthony Del Ciotto
 * @Date:   2014-06-22
 * @Last Modified by:   anthony
-* @Last Modified time: 2014-06-27
+* @Last Modified time: 2014-07-18
 *
 * @Description: 
 *
@@ -125,7 +125,7 @@ var Editor = (function() {
 	 * to the user.
 	 * @return {[type]} [description]
 	 */
-	var compileScript = function() {
+	var compileScript = function(e) {
 		// if we are not auto running, dont execute the demo script
 		if (!autoRun) return;
 
@@ -133,11 +133,15 @@ var Editor = (function() {
 			eval(session.getDocument().getValue());
 			errorStatusDiv.html('Successfully Compiled');
 			errorStatusDiv.toggleClass('error', false);
+			if (Demo.isError) {
+				Demo.isError = false;
+			}
 			if (!Demo.useRAF) Demo.updateDemo();
 		} catch(e) {
 			// update the html and css
 			errorStatusDiv.html('Error: ' + e.message);
 			errorStatusDiv.toggleClass('error', true);
+			Demo.isError = true;
 		}
 	}
 

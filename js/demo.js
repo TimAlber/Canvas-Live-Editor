@@ -47,16 +47,20 @@ var Demo = (function() {
 		width: $('.canvas-container').width(),
 		height: $('.canvas-container').height(),
 		useRAF: true,
+		isError: false,
 
 		updateDemo: function() {
 			this.context.save();
 			try {
 				stats.begin();
-				this.animate.call(this);
+				if (!this.isError) {
+					this.animate.call(this);
+				} 
 				stats.end();
 			} catch(e) {
 				$('.error-display').html('Error: ' + e.message);
 				$('.error-display').toggleClass('error', true);
+				this.isError = true;
 			}
 			this.context.restore();
 			if (this.useRAF) requestAnimFrame(this.updateDemo.bind(this));
