@@ -1,16 +1,20 @@
 /**
- * Here is the main canvas drawing context.
- * @type {[type]}
+ * Here is the main canvas drawing context and
+ * any other global vars
  */
 var ctx = Demo.context;
-
-ctx.font = '10px sans-serif';
 var charArray = [];
+
+/**
+ * Place any initialisation logic here!
+ */
+Demo.initialise = function() {
+    ctx.font = '10px sans-serif'; 
+}
 
 /**
  * Any updating or rendering logic you want continually displayed,
  * place here!
- * @return {[type]} [description]
  */
 Demo.animate = function() {
 	// clear the screen

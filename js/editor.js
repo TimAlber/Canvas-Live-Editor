@@ -133,10 +133,16 @@ var Editor = (function() {
 			eval(session.getDocument().getValue());
 			errorStatusDiv.html('Successfully Compiled');
 			errorStatusDiv.toggleClass('error', false);
+
 			if (Demo.isError) {
 				Demo.isError = false;
 			}
-			if (!Demo.useRAF) Demo.updateDemo();
+
+			if (Demo.useRAF) {
+				Demo.initialise();
+			} else {
+				Demo.updateDemo();
+			}
 		} catch(e) {
 			// update the html and css
 			errorStatusDiv.html('Error: ' + e.message);

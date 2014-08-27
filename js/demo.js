@@ -71,6 +71,7 @@ var Demo = (function() {
 		 * @return {[type]} [description]
 		 */
 		animate: function() {},
+		initialise: function() {},
 
 		/**
 		 * Initialise our canvas and context
