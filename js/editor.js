@@ -138,9 +138,8 @@ var Editor = (function() {
 				Demo.isError = false;
 			}
 
-			if (Demo.useRAF) {
+			if (!Demo.useRAF) {
 				Demo.initialise();
-			} else {
 				Demo.updateDemo();
 			}
 		} catch(e) {
