@@ -2,15 +2,17 @@
  * Here is the main canvas drawing context and
  * any other global vars
  */
-var ctx = Demo.context;
-var charArray = [];
+var ctx;
+var charArray;
 
 /**
  * Place any initialisation logic here!
  */
 Demo.initialise = function() {
+    ctx = Demo.context;
+    charArray = [];
     ctx.font = '10px sans-serif'; 
-}
+};
 
 /**
  * Any updating or rendering logic you want continually displayed,

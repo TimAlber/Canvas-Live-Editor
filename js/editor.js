@@ -25,9 +25,10 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 */
-'use strict';
 
 var Editor = (function() {
+	'use strict';
+
 	var editor = ace.edit('editor'),
 		session = editor.getSession(),
 		leftPanelDiv = $('.left-panel'),
@@ -49,7 +50,7 @@ var Editor = (function() {
 		});
 		editor.resize();
 		Demo.resize(rightPanelDiv.width(), rightPanelDiv.height());
-	}
+	};
 
 	/**
 	 * Function that is called when window resize event triggered.
@@ -59,7 +60,7 @@ var Editor = (function() {
 		// round the width to address bug in chrome
 		rightPanelDiv.css({ width: Math.floor($(window).innerWidth() / 2) });
 		resizeEditorPanel();
-	}
+	};
 
 	/**
 	 * [onMouseDown description]
@@ -80,12 +81,14 @@ var Editor = (function() {
 			// temporarily pause while resizing
 			if (!paused) Demo.pauseRAF();
 
-			// calculate the new distance from clicked position to dragged position
+			// calculate the new distance from clicked position to 
+			// dragged position
 			var mx = (me.pageX - pX),
 				newWidth = startWidth - mx;
 
 			// clamp the min and max width of the right panel
-			if (newWidth > $(window).innerWidth() - resizerDiv.width()*2.5 || newWidth < 15) {
+			if (newWidth > $(window).innerWidth() - resizerDiv.width() *2.5 ||
+				newWidth < 15) {
 				return;
 			}
 
@@ -96,7 +99,7 @@ var Editor = (function() {
 			});
 			resizeEditorPanel(rightPanelDiv.width());
 		});
-	}
+	};
 
 	var onPauseClick = function(e) {
 		// change button state to clicked
@@ -107,7 +110,7 @@ var Editor = (function() {
 		// toggle use of RAF
 		paused = !paused;
 		Demo.toggleRAF();
-	}
+	};
 
 	var onAutoRunClick = function(e) {
 		// toggle use of RAF
@@ -118,7 +121,7 @@ var Editor = (function() {
 
 		// change button state to clicked
 		$(this).toggleClass('pressed');
-	}
+	};
 
 	/**
 	 * Compile the current ace document and log any errors
@@ -133,6 +136,7 @@ var Editor = (function() {
 			eval(session.getDocument().getValue());
 			errorStatusDiv.html('Successfully Compiled');
 			errorStatusDiv.toggleClass('error', false);
+			Demo.initialise();
 
 			if (Demo.isError) {
 				Demo.isError = false;
@@ -148,18 +152,18 @@ var Editor = (function() {
 			errorStatusDiv.toggleClass('error', true);
 			Demo.isError = true;
 		}
-	}
+	};
 
 	var scriptLoaded = function(data) {
 		session.getDocument().setValue(data);
 		compileScript();
 		Demo.start();
 		windowResized();
-	}
+	};
 
 	var loadScript = function(scriptName) {
 		$.getScript('js/demos/' + scriptName, scriptLoaded);
-	}
+	};
 
 	/**
 	 * Initialise the editor layout so that both
@@ -176,7 +180,7 @@ var Editor = (function() {
 		$('#pause').click(onPauseClick);
 		$('#auto-run').click(onAutoRunClick);
 		resizerDiv.on('mousedown', onMouseDown);
-	}
+	};
 
 	return {
 		/**
@@ -190,7 +194,8 @@ var Editor = (function() {
 			session.setMode('ace/mode/' + options.mode);	
 			session.setUseWrapMode(options.useWrapMode);
 			session.setTabSize(options.tabSize);
-			document.getElementById('editor').style.fontSize = options.fontSize + 'px';
+			document.getElementById('editor').style.fontSize = 
+				options.fontSize + 'px';
 			editor.setShowPrintMargin(options.showPrintMargin);
 
 			// load and set the default script
@@ -198,10 +203,11 @@ var Editor = (function() {
 			loadScript('matrix.js');
 			initEditorLayout();
 		}
-	}
+	};
 })();
 
 $(document).ready(function() {
 	Editor.configure({ theme: 'monokai', mode: 'javascript', useWrapMode: true, 
-		tabSize: 4, fontSize: 14, showPrintMargin: false, defaultScriptPath: 'js/default.js' });
+		tabSize: 4, fontSize: 14, showPrintMargin: false,
+			defaultScriptPath: 'js/default.js' });
 });
